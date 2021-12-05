@@ -139,14 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Color3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Color3.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Vec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
