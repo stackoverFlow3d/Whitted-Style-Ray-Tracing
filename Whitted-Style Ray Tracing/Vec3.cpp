@@ -26,3 +26,13 @@ float Vec3::length() const
 {
 	return sqrt(x * x + y * y + z * z);
 }
+
+Vec3 Vec3::random()
+{
+	return Vec3((rand() / (RAND_MAX + 1.0)), (rand() / (RAND_MAX + 1.0)), (rand() / (RAND_MAX + 1.0)));
+}
+
+Vec3 Vec3::random(float min, float max)
+{
+	return Vec3((min + (max - min) * (rand() / (RAND_MAX + 1.0))), (min + (max - min) * (rand() / (RAND_MAX + 1.0))), (min + (max - min) * (rand() / (RAND_MAX + 1.0))));
+}

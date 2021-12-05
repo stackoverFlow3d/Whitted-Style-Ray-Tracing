@@ -12,6 +12,8 @@ public:
 	Vec3& operator*=(const float t);
 	Vec3 operator-() const;
 	float length() const;
+	static Vec3 random();
+	static Vec3 random(float min,float max);
 };
 
 using Point3 = Vec3;
