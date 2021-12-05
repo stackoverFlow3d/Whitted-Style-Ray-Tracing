@@ -24,6 +24,12 @@
     <ClCompile Include="Ray.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HittableList.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec3.h">
@@ -33,6 +39,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Hittable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HittableList.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

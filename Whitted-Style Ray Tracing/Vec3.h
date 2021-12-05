@@ -10,6 +10,7 @@ public:
 	Vec3(const float x0, const float y0, const float z0):x(x0),y(y0),z(z0) {};
 	Vec3& operator+=(const Vec3& v);
 	Vec3& operator*=(const float t);
+	Vec3 operator-() const;
 	float length() const;
 };
 

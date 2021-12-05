@@ -139,12 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HittableList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Hittable.h" />
+    <ClInclude Include="HittableList.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Vec3.h" />
   </ItemGroup>

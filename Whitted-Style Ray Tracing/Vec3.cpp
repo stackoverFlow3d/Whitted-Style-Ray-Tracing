@@ -17,6 +17,11 @@ Vec3& Vec3::operator*=(const float t)
 	return *this;
 }
 
+Vec3 Vec3::operator-() const
+{
+	return Vec3(-x,-y,-z);
+}
+
 float Vec3::length() const
 {
 	return sqrt(x * x + y * y + z * z);
