@@ -7,8 +7,14 @@
 #include "stb_image.h"
 #include "HittableList.h"
 #include "Sphere.h"
+#include "Camera.h"
 
 const double infinity = std::numeric_limits<double>::infinity();
+
+float random()
+{
+	return rand() / (RAND_MAX + 1.0);
+}
 
 Color3 rayColor(const Ray& r,const Hittable& scene)
 {
@@ -29,33 +35,33 @@ int main()
 	const float scale = 16.0 / 9.0;
 	const int width = 400;
 	const int height = static_cast<int>(width / scale);
-
-	//point of camera
-	const float view_height = 2.0;
-	const float view_width = view_height * scale;
-	const float focal_length = 1.0;
-	Vec3 horizontal(view_width, 0.0, 0.0);
-	Vec3 vertical(0.0, view_height, 0.0);
-	Point3 origin(0.0, 0.0, 0.0);
-	Point3 lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0, 0, focal_length);
+	//Sample
+	const int sample = 100;
+	//Camera
+	Camera camera;
 	//scene
 	HittableList scene;
 	Sphere s1(Point3(0,0,-1),0.5f);
 	Sphere ground(Point3(0, -100.5, -1), 100);
 	scene.add(make_shared<Sphere>(s1));
 	scene.add(make_shared<Sphere>(ground));
+
 	unsigned char* data = new unsigned char[width * height * 3];
 	for (int j = height - 1; j >= 0; j--)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			float u = float(i) / (width - 1);
-			float v = float(height - 1 - j) / (height - 1);
-			Ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-			Color3 color = rayColor(r,scene);
-			data[j * width * 3 + i * 3 + 0] = int(255.99 * color.x);
-			data[j * width * 3 + i * 3 + 1] = int(255.99 * color.y);
-			data[j * width * 3 + i * 3 + 2] = int(255.99 * color.z);
+			Color3 color(0,0,0);
+			for (int s = 0; s < sample;s++) 
+			{
+				auto u = (i + random()) / width;
+				auto v = (height - j + random() - 1) / height;
+				Ray r = camera.getRay(u, v);
+				color += rayColor(r, scene);
+			}
+			data[j * width * 3 + i * 3 + 0] = int(255.99 * color.x) / sample;
+			data[j * width * 3 + i * 3 + 1] = int(255.99 * color.y) / sample;
+			data[j * width * 3 + i * 3 + 2] = int(255.99 * color.z) / sample;
 		}
 	}
 	std::cout << "write png to file!" << std::endl;
