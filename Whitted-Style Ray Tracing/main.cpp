@@ -15,6 +15,7 @@ float random()
 {
 	return rand() / (RAND_MAX + 1.0);
 }
+
 float random(float min,float max)
 {
 	return min + (max - min) * random();
@@ -38,7 +39,7 @@ Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 	{
 		return Color3(0,0,0);
 	}
-	if (scene.hit(r,0,infinity,record))
+	if (scene.hit(r,0.001,infinity,record))
 	{
 		Point3 target = record.hitPoint + record.normal + randomDir();
 		return 0.5 * rayColor(Ray(record.hitPoint,target - record.hitPoint),scene,depth - 1);
