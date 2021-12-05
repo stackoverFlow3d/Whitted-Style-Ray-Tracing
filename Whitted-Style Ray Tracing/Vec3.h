@@ -36,3 +36,7 @@ inline Vec3 unit_vector(const Vec3& v)
 {
 	return v / v.length();
 }
+inline float operator*(const Vec3& v1, const Vec3& v2)
+{
+	return v1.x*v2.x + v2.y * v1.y + v1.z*v2.z;
+}

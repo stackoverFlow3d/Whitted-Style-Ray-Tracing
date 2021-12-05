@@ -6,8 +6,30 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+bool hitBall(const Ray& r,const Point3& center,const float radius)
+{
+	float a, b, c,del;
+	a = r.dir * r.dir;
+	b = 2 * r.dir * (r.origin - center);
+	c = (r.origin - center) * (r.origin - center) - radius * radius;
+	del = b * b - 4 * a * c;
+	if (del >= 0)
+	{
+		return true;
+	}
+	return false;
+}
+
 Color3 rayColor(const Ray& ray)
 {
+	//Ball
+	Point3 center(0,0,-1);
+	float radio = 0.5f;
+
+	if (hitBall(ray,center,radio))
+	{
+		return Color3(0,0,1);
+	}
 	Vec3 unit = unit_vector(ray.dir);
 	auto t = 0.5 * (unit.y + 1.0);
 	//ÏßÐÔ²åÖµ
@@ -32,9 +54,9 @@ int main()
 	Point3 origin(0.0, 0.0, 0.0);
 	Point3 lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0, 0, focal_length);
 	unsigned char* data = new unsigned char[width * height * 3];
-	for (int j = height - 1; j >= 0; --j)
+	for (int j = height - 1; j >= 0; j--)
 	{
-		for (int i = 0; i < width; ++i)
+		for (int i = 0; i < width; i++)
 		{
 			float u = float(i) / (width - 1);
 			float v = float(height - 1 - j) / (height - 1);
