@@ -36,3 +36,14 @@ Vec3 Vec3::random(float min, float max)
 {
 	return Vec3((min + (max - min) * (rand() / (RAND_MAX + 1.0))), (min + (max - min) * (rand() / (RAND_MAX + 1.0))), (min + (max - min) * (rand() / (RAND_MAX + 1.0))));
 }
+
+bool Vec3::nearZero() const
+{
+	const auto s = 1e-8;
+	return (x < s) && (y < s) && (z < s);
+}
+
+float Vec3::length_squared() const
+{
+	return x*x + y*y + z*z;
+}

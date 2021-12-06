@@ -8,30 +8,15 @@
 #include "HittableList.h"
 #include "Sphere.h"
 #include "Camera.h"
-
-const double infinity = std::numeric_limits<double>::infinity();
-
+#include "material.h"
+#include "Lambertian.h"
+#include "Meta.h"
+#include "Dielectric.h"
+const float infinity = std::numeric_limits<float>::infinity();
 float random()
 {
 	return rand() / (RAND_MAX + 1.0);
 }
-
-float random(float min,float max)
-{
-	return min + (max - min) * random();
-}
-
-Vec3 randomDir()
-{
-	while (true)
-	{
-		Vec3 p = Vec3::random(-1,1);
-		if (p.length() * p.length() >= 1)
-			continue;
-		return p;
-	}
-}
-
 Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 {
 	hitRecord record;
@@ -41,8 +26,14 @@ Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 	}
 	if (scene.hit(r,0.001,infinity,record))
 	{
-		Point3 target = record.hitPoint + record.normal + randomDir();
-		return 0.5 * rayColor(Ray(record.hitPoint,target - record.hitPoint),scene,depth - 1);
+		Ray out;
+		Color3 attenuation;
+		if (record.mateptr->scatter(r, record, attenuation, out))
+		{
+			return attenuation * rayColor(out,scene,depth - 1);
+		}
+		return Color3(0,0,0);
+
 	}
 	Vec3 unit = unit_vector(r.dir);
 	float t = 0.5 * (unit.y + 1.0);
@@ -64,10 +55,16 @@ int main()
 	Camera camera;
 	//scene
 	HittableList scene;
-	Sphere s1(Point3(0,0,-1),0.5f);
-	Sphere ground(Point3(0, -100.5, -1), 100);
-	scene.add(make_shared<Sphere>(s1));
-	scene.add(make_shared<Sphere>(ground));
+	auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
+	auto material_center = make_shared<Lambertian>(Color3(0.8, 0.1, 0.3));
+	auto material_left = make_shared<Meta>(Color3(0.9, 0.1, 0),0.3);
+	auto material_right = make_shared<Meta>(Color3(0.1, 0.2, 0.8),1);
+
+	scene.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
+	scene.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, material_center));
+	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
+	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));
+
 
 	unsigned char* data = new unsigned char[width * height * 3];
 	for (int j = height - 1; j >= 0; j--)

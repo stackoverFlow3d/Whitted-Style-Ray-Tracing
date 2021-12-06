@@ -3,9 +3,9 @@
 bool Sphere::hit(const Ray& r, const float tmin, const float tmax, hitRecord& record) const
 {
 	float a, h, c, del;
-	a = r.dir * r.dir;
-	h = r.dir * (r.origin - center);
-	c = (r.origin - center) * (r.origin - center) - radius * radius;
+	a = dot(r.dir , r.dir);
+	h = dot(r.dir , (r.origin - center));
+	c = dot((r.origin - center) , (r.origin - center)) - radius * radius;
 	del = h * h - a * c;
 	if (del > 0)
 	{
@@ -16,6 +16,7 @@ bool Sphere::hit(const Ray& r, const float tmin, const float tmax, hitRecord& re
 			record.hitPoint = r.at(t1);
 			Vec3 normal1 = (record.hitPoint - center) / radius;
 			record.setNormal(r, normal1);
+			record.mateptr = mateptr;
 			return true;
 		}
 		t1 = (-h + sqrt(del)) / a;
@@ -23,7 +24,9 @@ bool Sphere::hit(const Ray& r, const float tmin, const float tmax, hitRecord& re
 		{
 			record.t = t1;
 			record.hitPoint = r.at(t1);
-			record.normal = (record.hitPoint - center) / radius;
+			Vec3 normal2 = (record.hitPoint - center) / radius;
+			record.setNormal(r, normal2);
+			record.mateptr = mateptr;
 			return true;
 		}
 	}
