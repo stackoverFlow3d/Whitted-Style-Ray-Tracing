@@ -1,12 +1,18 @@
 # Whitted-Style-Ray-Tracing
-Whitted-Style Ray Tracing
+a Whitted-Style Ray Tracing Render.
 
-- used Whitted-Style ray tracing.
+Features
 
-- used stb_image to write png.
+- stb_image to write png.
 
+- Anti-Aliasing
 
+Material:
 
-result:
+- lambertain
+- metal
+- glass
 
-![10](G:\ComputerGraphics\Whitted-Style Ray Tracing\out\10.png)
+Camera：
+
+- Depth of field
