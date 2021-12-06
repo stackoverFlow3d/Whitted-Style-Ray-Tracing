@@ -13,6 +13,10 @@ Material:
 - metal
 - glass
 
+![avatar](out/trick.png)
+
 Camera：
 
 - Depth of field
+
+![avatar](out/depth.png)
