@@ -37,6 +37,19 @@ Vec3 Vec3::random(float min, float max)
 	return Vec3((min + (max - min) * (rand() / (RAND_MAX + 1.0))), (min + (max - min) * (rand() / (RAND_MAX + 1.0))), (min + (max - min) * (rand() / (RAND_MAX + 1.0))));
 }
 
+Vec3 Vec3::refract(const Vec3& uv, const Vec3& n, float eta)
+{
+	auto cos_theta = fmin(dot(-uv, n), 1.0);
+	Vec3 r_out_perp = eta * (uv + cos_theta * n);
+	Vec3 r_out_parallel = -sqrt(fabs(1.0 - r_out_perp.length_squared())) * n;
+	return r_out_parallel + r_out_perp;
+}
+
+Vec3 Vec3::reflect(Vec3 v, Vec3 n)
+{
+	return v - 2 * dot(v, n) * n;
+}
+
 bool Vec3::nearZero() const
 {
 	const auto s = 1e-8;

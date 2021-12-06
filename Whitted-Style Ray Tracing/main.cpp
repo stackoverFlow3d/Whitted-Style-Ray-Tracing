@@ -57,18 +57,20 @@ int main()
 	HittableList scene;
 	auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
 	auto material_center = make_shared<Lambertian>(Color3(0.8, 0.1, 0.3));
-	auto material_left = make_shared<Meta>(Color3(0.9, 0.1, 0),0.3);
-	auto material_right = make_shared<Meta>(Color3(0.1, 0.2, 0.8),1);
+	auto material_left = make_shared<Dielectric>(1.5);
+	auto material_right = make_shared<Meta>(Color3(0.8, 0.6, 0.2), 0.0);
 
 	scene.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
 	scene.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, material_center));
 	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
+	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), -0.4, material_left));
 	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));
 
 
 	unsigned char* data = new unsigned char[width * height * 3];
 	for (int j = height - 1; j >= 0; j--)
 	{
+		std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
 		for (int i = 0; i < width; i++)
 		{
 			Color3 color(1,0,0);

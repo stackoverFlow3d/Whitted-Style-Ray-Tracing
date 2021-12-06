@@ -14,6 +14,8 @@ public:
 	float length() const;
 	static Vec3 random();
 	static Vec3 random(float min,float max);
+	static Vec3 refract(const Vec3& uv, const Vec3& n, float eta);
+	static Vec3 reflect(Vec3 v, Vec3 n);
 	bool nearZero() const;
 	float length_squared() const;
 };
