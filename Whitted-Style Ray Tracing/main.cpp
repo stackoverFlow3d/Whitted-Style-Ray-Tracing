@@ -92,7 +92,7 @@ int main()
 	const int width = 1200;
 	const int height = static_cast<int>(width / scale);
 	//Sample
-	const int sample = 100;
+	const int sample = 500;
 	//depth
 	const int max_depth = 50;
 	//Camera
