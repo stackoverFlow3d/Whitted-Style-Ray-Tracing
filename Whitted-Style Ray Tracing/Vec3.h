@@ -51,7 +51,8 @@ inline float dot(const Vec3& v1, const Vec3& v2)
 {
 	return v1.x * v2.x + v2.y * v1.y + v1.z * v2.z;
 }
-inline Vec3 cross(const Vec3& u, const Vec3& v) {
+inline Vec3 cross(const Vec3& u, const Vec3& v) 
+{
 	return Vec3(u.y * v.z - u.z * v.y,
 		u.z * v.x - u.x * v.z,
 		u.x * v.y - u.y * v.x);

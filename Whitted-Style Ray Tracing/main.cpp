@@ -88,33 +88,33 @@ HittableList randomScene()
 int main()
 {
 	//size of image
-	const float scale = 3.0 / 2.0;
-	const int width = 1200;
+	const float scale = 16.0 / 9.0;
+	const int width = 400;
 	const int height = static_cast<int>(width / scale);
 	//Sample
-	const int sample = 500;
+	const int sample = 10;
 	//depth
-	const int max_depth = 50;
+	const int maxDepth = 5;
 	//Camera
-	Point3 lookfrom(13, 2, 3);
+	Point3 lookfrom(0, 0, -5);
 	Point3 lookat(0, 0, 0);
 	Vec3 vup(0, 1, 0);
 	auto dist_to_focus = 10.0;
-	auto aperture = 0.1;
+	auto aperture = 0;
 
 	Camera camera(lookfrom, lookat, vup, 20, scale, aperture, dist_to_focus);
 	//scene
-	HittableList scene = randomScene();
-	/*auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
+	HittableList scene;
+	auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
 	auto material_center = make_shared<Lambertian>(Color3(0.8, 0.1, 0.3));
 	auto material_left = make_shared<Dielectric>(1.5);
-	auto material_right = make_shared<Meta>(Color3(0.8, 0.6, 0.2), 0.0);*/
+	auto material_right = make_shared<Meta>(Color3(0.8, 0.6, 0.2), 0.0);
 
-	/*scene.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
+	scene.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
 	scene.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, material_center));
 	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
 	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), -0.45, material_left));
-	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));*/
+	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));
 
 
 	unsigned char* data = new unsigned char[width * height * 3];
@@ -129,7 +129,7 @@ int main()
 				auto u = (i + random()) / width;
 				auto v = (height - j + random() - 1) / height;
 				Ray r = camera.getRay(u, v);
-				color += rayColor(r, scene, max_depth);
+				color += rayColor(r, scene, maxDepth);
 			}
 			auto r = sqrt(color.x / sample);
 			auto g = sqrt(color.y / sample);
