@@ -3,7 +3,7 @@ a Whitted-Style Ray Tracing Render.
 
 ![avatar](out/out1.png)
 
-Features
+## Features
 
 - stb_image to write png.
 
@@ -20,5 +20,6 @@ Material:
 Camera：
 
 - Depth of field
+- Motion blur
 
 ![avatar](out/depth.png)
