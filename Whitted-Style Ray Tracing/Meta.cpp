@@ -20,7 +20,7 @@ Meta::Meta(Color3 albedo0,float fuzz0)
 bool Meta::scatter(const Ray& in, const hitRecord& recored, Color3& attenuation, Ray& out) const
 {
     Vec3 outDir = Vec3::reflect(unit_vector(in.dir),recored.normal);
-    out = Ray(recored.hitPoint,outDir + fuzz* randomFuzz());
+    out = Ray(recored.hitPoint,outDir + fuzz* randomFuzz(), in.time);
     attenuation = albedo;
     return (dot(out.dir , recored.normal) > 0);
 }

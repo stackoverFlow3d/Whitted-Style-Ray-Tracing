@@ -1,6 +1,5 @@
 #pragma once
 #include "Hittable.h"
-const float pi = 3.141592653;
 class Material
 {
 public:

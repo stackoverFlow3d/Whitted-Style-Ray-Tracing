@@ -12,7 +12,7 @@ bool Lambertian::scatter(const Ray& in, const hitRecord& recored, Color3& attenu
 	{
 		outdir = randomDir();
 	}
-	out = Ray(recored.hitPoint, outdir);
+	out = Ray(recored.hitPoint, outdir,in.time);
 	attenuation = albedo;
 	return true;
 }

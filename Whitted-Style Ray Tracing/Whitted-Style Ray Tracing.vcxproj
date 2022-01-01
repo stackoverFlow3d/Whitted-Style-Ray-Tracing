@@ -145,11 +145,13 @@
     <ClCompile Include="Lambertian.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Meta.cpp" />
+    <ClCompile Include="MovingSphere.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arithmetic.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="Hittable.h" />
@@ -157,6 +159,7 @@
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Meta.h" />
+    <ClInclude Include="MovingSphere.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="stb_image.h" />

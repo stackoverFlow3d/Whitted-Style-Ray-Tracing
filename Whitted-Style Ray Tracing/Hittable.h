@@ -2,6 +2,7 @@
 #include "Ray.h"
 #include <vector>
 #include <memory>
+#include "arithmetic.h"
 using namespace std;
 class Material;
 struct hitRecord

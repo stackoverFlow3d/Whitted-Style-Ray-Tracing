@@ -12,7 +12,8 @@
 #include "Lambertian.h"
 #include "Meta.h"
 #include "Dielectric.h"
-const float infinity = std::numeric_limits<float>::infinity();
+#include "arithmetic.h"
+#include "MovingSphere.h"
 Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 {
 	hitRecord record;
@@ -58,7 +59,8 @@ HittableList randomScene()
 					// diffuse
 					auto albedo = Color3::random() * Color3::random();
 					sphere_material = make_shared<Lambertian>(albedo);
-					scene.add(make_shared<Sphere>(center, 0.2, sphere_material));
+					Point3 center2 = center + Vec3(0, random(0,0.5), 0);
+					scene.add(make_shared<MovingSphere>(center, center2,0.0,1.0,0.2, sphere_material));
 				}
 				else if (choose_mat < 0.95) 
 				{
@@ -92,20 +94,20 @@ int main()
 	const int width = 400;
 	const int height = static_cast<int>(width / scale);
 	//Sample
-	const int sample = 10;
+	const int sample = 100;
 	//depth
-	const int maxDepth = 5;
+	const int maxDepth = 50;
 	//Camera
-	Point3 lookfrom(0, 0, -5);
+	Point3 lookfrom(13, 2, 3);
 	Point3 lookat(0, 0, 0);
 	Vec3 vup(0, 1, 0);
 	auto dist_to_focus = 10.0;
-	auto aperture = 0;
+	auto aperture = 0.1;
 
-	Camera camera(lookfrom, lookat, vup, 20, scale, aperture, dist_to_focus);
+	Camera camera(lookfrom, lookat, vup, 20, scale, aperture, dist_to_focus,0.0,1.0);
 	//scene
-	HittableList scene;
-	auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
+	HittableList scene = randomScene();
+	/*auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
 	auto material_center = make_shared<Lambertian>(Color3(0.8, 0.1, 0.3));
 	auto material_left = make_shared<Dielectric>(1.5);
 	auto material_right = make_shared<Meta>(Color3(0.8, 0.6, 0.2), 0.0);
@@ -114,7 +116,7 @@ int main()
 	scene.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, material_center));
 	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
 	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), -0.45, material_left));
-	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));
+	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));*/
 
 
 	unsigned char* data = new unsigned char[width * height * 3];
@@ -134,12 +136,12 @@ int main()
 			auto r = sqrt(color.x / sample);
 			auto g = sqrt(color.y / sample);
 			auto b = sqrt(color.z / sample);
-			data[j * width * 3 + i * 3 + 0] = int(255.99 * r);
-			data[j * width * 3 + i * 3 + 1] = int(255.99 * g);
-			data[j * width * 3 + i * 3 + 2] = int(255.99 * b);
+			data[j * width * 3 + i * 3 + 0] = int(256 * clamp(r, 0.0, 0.999));
+			data[j * width * 3 + i * 3 + 1] = int(256 * clamp(g, 0.0, 0.999));
+			data[j * width * 3 + i * 3 + 2] = int(256 * clamp(b, 0.0, 0.999));
 		}
 	}
-	std::cout << "write png to file!" << std::endl;
+	std::cout << "render done!" << std::endl;
 	stbi_write_png("out1.png", width, height, 3, data, 0);
 	stbi_image_free(data);
 	return 0;
