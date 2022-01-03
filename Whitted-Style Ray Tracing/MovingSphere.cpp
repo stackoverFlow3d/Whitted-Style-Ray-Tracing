@@ -37,3 +37,11 @@ bool MovingSphere::hit(const Ray& r, const float tmin, const float tmax, hitReco
 	}
 	return false;
 }
+
+bool MovingSphere::boundingBox(float time0, float time1, Aabb& outputBox) const
+{
+	Aabb box0 = Aabb((center(time0) - Vec3(radius, radius, radius)), (center(time0) + Vec3(radius, radius, radius)));
+	Aabb box1 = Aabb((center(time1) - Vec3(radius, radius, radius)), (center(time1) + Vec3(radius, radius, radius)));
+	outputBox = surroundingBox(box0,box1);
+	return true;
+}

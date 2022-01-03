@@ -4,7 +4,7 @@ Vec3 Meta::randomFuzz() const
 {
     while (true) 
     {
-        Vec3 p = Vec3::random(-1, 1);
+        Vec3 p = randomVec3(-1, 1);
         if ( p.length() * p.length() >= 1)
             continue;
         return p;

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cmath>
-
+#include "arithmetic.h"
 class Vec3
 {
 public:
@@ -11,9 +11,25 @@ public:
 	Vec3& operator+=(const Vec3& v);
 	Vec3& operator*=(const float t);
 	Vec3 operator-() const;
+	float operator[](int i) const
+	{
+		if (i == 0)
+			return x;
+		else if (x == 1)
+			return y;
+		else if (x == 2)
+			return z;
+	};
+	float& operator[](int i)
+	{
+		if (i == 0)
+			return x;
+		else if (x == 1)
+			return y;
+		else if (x == 2)
+			return z;
+	};
 	float length() const;
-	static Vec3 random();
-	static Vec3 random(float min,float max);
 	static Vec3 refract(const Vec3& uv, const Vec3& n, float eta);
 	static Vec3 reflect(Vec3 v, Vec3 n);
 	bool nearZero() const;
@@ -39,7 +55,7 @@ inline Vec3 operator-(const Vec3& u, const Vec3& v)
 {
 	return Vec3(u.x - v.x, u.y - v.y, u.z - v.z);
 }
-inline Vec3 operator/(const Vec3& v, double t) 
+inline Vec3 operator/(const Vec3& v, float t) 
 {
 	return (1 / t) * v;
 }
@@ -56,4 +72,21 @@ inline Vec3 cross(const Vec3& u, const Vec3& v)
 	return Vec3(u.y * v.z - u.z * v.y,
 		u.z * v.x - u.x * v.z,
 		u.x * v.y - u.y * v.x);
+}
+inline Vec3 random_in_unit_disk() 
+{
+	while (true) 
+	{
+		auto p = Vec3(random(-1, 1), random(-1, 1), 0);
+		if (p.length_squared() >= 1) continue;
+		return p;
+	}
+}
+inline static Vec3 randomVec3()
+{
+	return Vec3(random(), random(), random());
+}
+inline static Vec3 randomVec3(float min, float max)
+{
+	return Vec3(random(min,max), random(min, max), random(min, max));
 }

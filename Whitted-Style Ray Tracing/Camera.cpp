@@ -18,15 +18,6 @@ Camera::Camera(Point3 lookfrom, Point3 lookat, Vec3 up, float fov0, float scale,
     time0 = _time0;
     time1 = _time1;
 }
-Vec3 Camera::random_in_unit_disk() const
-{
-    while (true) 
-    {
-        auto p = Vec3(random(-1, 1), random(-1, 1), 0);
-        if (p.length_squared() >= 1) continue;
-        return p;
-    }
-}
 Ray Camera::getRay(float s,float t) const
 {
     Vec3 rd = lens_radius * random_in_unit_disk();

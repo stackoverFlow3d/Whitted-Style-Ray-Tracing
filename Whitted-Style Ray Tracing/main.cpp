@@ -1,6 +1,4 @@
 #include <iostream>
-#include "Vec3.h"
-#include "Ray.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 #define STB_IMAGE_IMPLEMENTATION
@@ -14,6 +12,7 @@
 #include "Dielectric.h"
 #include "arithmetic.h"
 #include "MovingSphere.h"
+
 Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 {
 	hitRecord record;
@@ -57,7 +56,7 @@ HittableList randomScene()
 				if (choose_mat < 0.8) 
 				{
 					// diffuse
-					auto albedo = Color3::random() * Color3::random();
+					auto albedo = randomVec3() * randomVec3();
 					sphere_material = make_shared<Lambertian>(albedo);
 					Point3 center2 = center + Vec3(0, random(0,0.5), 0);
 					scene.add(make_shared<MovingSphere>(center, center2,0.0,1.0,0.2, sphere_material));
@@ -65,7 +64,7 @@ HittableList randomScene()
 				else if (choose_mat < 0.95) 
 				{
 					// metal
-					auto albedo = Color3::random(0.5, 1);
+					auto albedo = randomVec3(0.5, 1);
 					auto fuzz = random(0, 0.5);
 					sphere_material = make_shared<Meta>(albedo, fuzz);
 					scene.add(make_shared<Sphere>(center, 0.2, sphere_material));
