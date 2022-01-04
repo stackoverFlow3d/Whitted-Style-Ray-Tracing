@@ -35,8 +35,8 @@ Bvh::Bvh(const std::vector<shared_ptr<Hittable>>& srcObjects, int start, int end
 	{
 		std::sort(objects.begin() + start, objects.begin() + end,comparaor);
 		auto mid = start + length/2;
-		left = make_shared<Bvh>(objects,start,mid,time0,time1);
-		right = make_shared<Bvh>(objects, mid, end, time0, time1);
+		this->left = make_shared<Bvh>(objects,start,mid,time0,time1);
+		this->right = make_shared<Bvh>(objects, mid, end, time0, time1);
 	}
 
 	Aabb boxLeft, boxRight;

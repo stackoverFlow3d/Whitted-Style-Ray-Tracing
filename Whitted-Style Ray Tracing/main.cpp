@@ -12,6 +12,7 @@
 #include "Dielectric.h"
 #include "arithmetic.h"
 #include "MovingSphere.h"
+#include "Bvh.h"
 
 Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 {
@@ -83,7 +84,7 @@ HittableList randomScene()
 	scene.add(make_shared<Sphere>(Point3(-4, 1, 0), 1.0, material2));
 	auto material3 = make_shared<Meta>(Color3(0.7, 0.6, 0.5), 0.0);
 	scene.add(make_shared<Sphere>(Point3(4, 1, 0), 1.0, material3));
-	return scene;
+	return HittableList(make_shared<Bvh>(scene, 0, 1));
 }
 
 int main()
@@ -106,16 +107,6 @@ int main()
 	Camera camera(lookfrom, lookat, vup, 20, scale, aperture, dist_to_focus,0.0,1.0);
 	//scene
 	HittableList scene = randomScene();
-	/*auto material_ground = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
-	auto material_center = make_shared<Lambertian>(Color3(0.8, 0.1, 0.3));
-	auto material_left = make_shared<Dielectric>(1.5);
-	auto material_right = make_shared<Meta>(Color3(0.8, 0.6, 0.2), 0.0);
-
-	scene.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
-	scene.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, material_center));
-	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
-	scene.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), -0.45, material_left));
-	scene.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));*/
 
 
 	unsigned char* data = new unsigned char[width * height * 3];

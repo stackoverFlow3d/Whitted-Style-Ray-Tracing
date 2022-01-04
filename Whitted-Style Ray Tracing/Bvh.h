@@ -11,7 +11,7 @@ public:
 
 	Bvh() {};
 	Bvh(const std::vector<shared_ptr<Hittable>>& srcObjects,int start,int end,float time0,float time1);
-	Bvh(const HittableList& list, float time0, float time1) { Bvh(list.objects, 0, list.objects.size(), time0, time1); };
+	Bvh(const HittableList& list, float time0, float time1) :Bvh(list.objects, 0, list.objects.size(), time0, time1) {};
 	virtual bool hit(const Ray& r, const float tmin, const float tmax, hitRecord& record) const override;
 	virtual bool boundingBox(float time0, float time1, Aabb& outputBox) const override;
 };
