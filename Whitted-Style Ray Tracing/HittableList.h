@@ -13,5 +13,6 @@ public:
     void clear();
     void add(shared_ptr<Hittable> object) { objects.push_back(object); }
     virtual bool hit(const Ray& r, const float tmin, const float tmax, hitRecord& record) const override;
+    virtual bool boundingBox(float time0, float time1, Aabb& outputBox) const override;
 };
 

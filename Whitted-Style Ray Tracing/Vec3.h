@@ -77,16 +77,16 @@ inline Vec3 random_in_unit_disk()
 {
 	while (true) 
 	{
-		auto p = Vec3(random(-1, 1), random(-1, 1), 0);
+		auto p = Vec3(randomFloat(-1, 1), randomFloat(-1, 1), 0);
 		if (p.length_squared() >= 1) continue;
 		return p;
 	}
 }
 inline static Vec3 randomVec3()
 {
-	return Vec3(random(), random(), random());
+	return Vec3(randomFloat(), randomFloat(), randomFloat());
 }
 inline static Vec3 randomVec3(float min, float max)
 {
-	return Vec3(random(min,max), random(min, max), random(min, max));
+	return Vec3(randomFloat(min,max), randomFloat(min, max), randomFloat(min, max));
 }

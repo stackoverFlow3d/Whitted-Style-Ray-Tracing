@@ -25,6 +25,6 @@ Ray Camera::getRay(float s,float t) const
 
     return Ray(
         origin + offset,
-        lower_left_corner + s * horizontal + t * vertical - origin - offset,random(time0,time1));
+        lower_left_corner + s * horizontal + t * vertical - origin - offset,randomFloat(time0,time1));
 }
 

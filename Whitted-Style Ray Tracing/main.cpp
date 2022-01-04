@@ -46,8 +46,8 @@ HittableList randomScene()
 	{
 		for (int b = -11; b < 11; b++) 
 		{
-			auto choose_mat = random();
-			Point3 center(a + 0.9 * random(), 0.2, b + 0.9 * random());
+			auto choose_mat = randomFloat();
+			Point3 center(a + 0.9 * randomFloat(), 0.2, b + 0.9 * randomFloat());
 
 			if ((center - Point3(4, 0.2, 0)).length() > 0.9) 
 			{
@@ -58,14 +58,14 @@ HittableList randomScene()
 					// diffuse
 					auto albedo = randomVec3() * randomVec3();
 					sphere_material = make_shared<Lambertian>(albedo);
-					Point3 center2 = center + Vec3(0, random(0,0.5), 0);
+					Point3 center2 = center + Vec3(0, randomFloat(0,0.5), 0);
 					scene.add(make_shared<MovingSphere>(center, center2,0.0,1.0,0.2, sphere_material));
 				}
 				else if (choose_mat < 0.95) 
 				{
 					// metal
 					auto albedo = randomVec3(0.5, 1);
-					auto fuzz = random(0, 0.5);
+					auto fuzz = randomFloat(0, 0.5);
 					sphere_material = make_shared<Meta>(albedo, fuzz);
 					scene.add(make_shared<Sphere>(center, 0.2, sphere_material));
 				}
@@ -127,8 +127,8 @@ int main()
 			Color3 color(1,0,0);
 			for (int s = 0; s < sample;s++) 
 			{
-				auto u = (i + random()) / width;
-				auto v = (height - j + random() - 1) / height;
+				auto u = (i + randomFloat()) / width;
+				auto v = (height - j + randomFloat() - 1) / height;
 				Ray r = camera.getRay(u, v);
 				color += rayColor(r, scene, maxDepth);
 			}

@@ -26,3 +26,19 @@ bool HittableList::hit(const Ray& r, const float tmin, const float tmax, hitReco
 	}
 	return isHit;
 }
+
+bool HittableList::boundingBox(float time0, float time1, Aabb& outputBox) const
+{
+	if (objects.empty())
+		return false;
+	Aabb tempBox;
+	bool isFirst = true;
+	for (const auto& object : objects)
+	{
+		if (!object->boundingBox(time0, time1, tempBox))
+			return false;
+		outputBox = isFirst ? tempBox : surroundingBox(tempBox, outputBox);
+		isFirst = false;
+	}
+	return true;
+}

@@ -1,8 +1,6 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Vec3.h"
-#include "Ray.h"
 #include "arithmetic.h"
 #include "Aabb.h"
 using namespace std;
@@ -26,4 +24,3 @@ public:
 	virtual bool hit(const Ray& r,const float tmin,const float tmax,hitRecord& record) const = 0;
 	virtual bool boundingBox(float time0,float time1,Aabb& outputBox) const = 0;
 };
-
