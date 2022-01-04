@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
+    <ClCompile Include="Bvh.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="HittableList.cpp" />
@@ -154,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
     <ClInclude Include="arithmetic.h" />
+    <ClInclude Include="Bvh.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="Hittable.h" />
