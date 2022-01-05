@@ -13,6 +13,7 @@
 #include "arithmetic.h"
 #include "MovingSphere.h"
 #include "Bvh.h"
+#include "CheckerTexture.h"
 
 Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 {
@@ -41,8 +42,8 @@ Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
 HittableList randomScene() 
 {
 	HittableList scene;
-	auto ground_material = make_shared<Lambertian>(Color3(0.3, 0.8, 0.1));
-	scene.add(make_shared<Sphere>(Point3(0, -1000, 0), 1000, ground_material));
+	auto checker = make_shared<CheckerTexture>(Color3(0.2, 0.3, 0.1), Color3(0.9, 0.9, 0.9));
+	scene.add(make_shared<Sphere>(Point3(0, -1000, 0), 1000, make_shared<Lambertian>(checker)));
 	for (int a = -11; a < 11; a++) 
 	{
 		for (int b = -11; b < 11; b++) 

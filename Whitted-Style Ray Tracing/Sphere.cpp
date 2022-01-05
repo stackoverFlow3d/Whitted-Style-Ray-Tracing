@@ -16,6 +16,7 @@ bool Sphere::hit(const Ray& r, const float tmin, const float tmax, hitRecord& re
 			record.hitPoint = r.at(t1);
 			Vec3 normal1 = (record.hitPoint - center) / radius;
 			record.setNormal(r, normal1);
+			getUV(normal1,record.u,record.v);
 			record.mateptr = mateptr;
 			return true;
 		}
@@ -26,6 +27,7 @@ bool Sphere::hit(const Ray& r, const float tmin, const float tmax, hitRecord& re
 			record.hitPoint = r.at(t1);
 			Vec3 normal2 = (record.hitPoint - center) / radius;
 			record.setNormal(r, normal2);
+			getUV(normal2, record.u, record.v);
 			record.mateptr = mateptr;
 			return true;
 		}
@@ -37,4 +39,13 @@ bool Sphere::boundingBox(float time0, float time1, Aabb& outputBox) const
 {
 	outputBox = Aabb((center - Vec3(radius, radius, radius)), (center + Vec3(radius, radius, radius)));
 	return true;
+}
+
+void Sphere::getUV(const Point3& p, float& u, float& v)
+{
+	auto theta = acos(-p.y);
+	auto phi = atan2(-p.z, p.x) + pi;
+
+	u = phi / (2 * pi);
+	v = theta / pi;
 }

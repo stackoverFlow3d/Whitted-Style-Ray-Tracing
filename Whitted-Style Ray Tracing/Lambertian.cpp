@@ -1,10 +1,5 @@
 #include "Lambertian.h"
 
-Lambertian::Lambertian(const Color3& a)
-{
-	albedo = a;
-}
-
 bool Lambertian::scatter(const Ray& in, const hitRecord& recored, Color3& attenuation, Ray& out) const
 {
 	Vec3 outdir = recored.normal + randomDir();
@@ -13,7 +8,7 @@ bool Lambertian::scatter(const Ray& in, const hitRecord& recored, Color3& attenu
 		outdir = randomDir();
 	}
 	out = Ray(recored.hitPoint, outdir,in.time);
-	attenuation = albedo;
+	attenuation = albedo->value(recored.u, recored.v, recored.hitPoint);
 	return true;
 }
 

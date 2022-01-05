@@ -1,11 +1,13 @@
 #pragma once
 #include "Material.h"
+#include "Texture.h"
 class Lambertian :public Material
 {
 public:
-	Color3 albedo;
+	shared_ptr<Texture> albedo;
 	Lambertian() {};
-	Lambertian(const Color3& a);
+	Lambertian(const Color3& a) : albedo(make_shared<solidColor>(a)) {};
+	Lambertian(shared_ptr<Texture> a) : albedo(a) {};
 	virtual bool scatter(const Ray& in, const hitRecord& recored, Color3& attenuation, Ray& out) const override;
 };
 

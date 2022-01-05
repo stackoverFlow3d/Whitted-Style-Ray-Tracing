@@ -9,6 +9,7 @@ struct hitRecord
 {
 	Point3 hitPoint;
 	Vec3 normal;
+	float u, v;
 	float t;
 	bool isFront;
 	shared_ptr<Material> mateptr;
