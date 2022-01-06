@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Bvh.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckerTexture.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
     <ClInclude Include="arithmetic.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Bvh.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckerTexture.h" />
