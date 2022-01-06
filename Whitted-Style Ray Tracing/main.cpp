@@ -14,29 +14,30 @@
 #include "MovingSphere.h"
 #include "Bvh.h"
 #include "CheckerTexture.h"
+#include "Aarect.h"
+#include "Diffuse.h"
 
-Color3 rayColor(const Ray& r,const Hittable& scene,int depth)
+Color3 rayColor(const Ray& r,const Color3& background, const Hittable& scene,int depth)
 {
 	hitRecord record;
 	if (depth < 0)
 	{
 		return Color3(0,0,0);
 	}
-	if (scene.hit(r,0.001,infinity,record))
+	if (!scene.hit(r, 0.001, infinity, record))
 	{
-		Ray out;
-		Color3 attenuation;
-		if (record.mateptr->scatter(r, record, attenuation, out))
-		{
-			return attenuation * rayColor(out,scene,depth - 1);
-		}
-		return Color3(0,0,0);
-
+		return background;
 	}
-	Vec3 unit = unit_vector(r.dir);
-	float t = 0.5 * (unit.y + 1.0);
-	//ÏßÐÔ²åÖµ
-	return (1.0 - t) * Color3(1.0, 1.0, 1.0) + t * Color3(0.5, 0.7, 1.0);
+	Ray scattered;
+	Color3 attenuation;
+	Color3 emitted = record.mateptr->emitted(record.u, record.v, record.hitPoint);
+
+	if (!record.mateptr->scatter(r, record, attenuation, scattered))
+	{
+		return emitted;
+	}
+
+	return emitted + attenuation * rayColor(scattered, background, scene, depth - 1);
 }
 
 HittableList randomScene() 
@@ -88,14 +89,28 @@ HittableList randomScene()
 	return HittableList(make_shared<Bvh>(scene, 0, 1));
 }
 
+HittableList simpleLight()
+{
+	HittableList objects;
+	auto pertext = make_shared<CheckerTexture>(Color3(0.2, 0.3, 0.1), Color3(0.9, 0.9, 0.9));
+	objects.add(make_shared<Sphere>(Point3(0, -1000, 0), 1000, make_shared<Lambertian>(pertext)));
+	objects.add(make_shared<Sphere>(Point3(0, 2, 0), 2, make_shared<Lambertian>(pertext)));
+
+	auto difflight = make_shared<Diffuse>(Color3(4, 4, 4));
+	objects.add(make_shared<XYrect>(3, 5, 1, 3, -2, difflight));
+
+	return objects;
+}
+
 int main()
 {
 	//size of image
 	const float scale = 16.0 / 9.0;
 	const int width = 400;
 	const int height = static_cast<int>(width / scale);
+	Color3 background = Color3(0,0,0);
 	//Sample
-	const int sample = 100;
+	const int sample = 500;
 	//depth
 	const int maxDepth = 50;
 	//Camera
@@ -104,12 +119,17 @@ int main()
 	Vec3 vup(0, 1, 0);
 	auto dist_to_focus = 10.0;
 	auto aperture = 0.1;
-
-	Camera camera(lookfrom, lookat, vup, 20, scale, aperture, dist_to_focus,0.0,1.0);
+	auto vfov = 40.0;
 	//scene
-	HittableList scene = randomScene();
+	HittableList scene;
 
+	scene = simpleLight();
+	background = Color3(0, 0, 0);
+	lookfrom = Point3(26, 3, 6);
+	lookat = Point3(0, 2, 0);
+	vfov = 20.0;
 
+	Camera camera(lookfrom, lookat, vup, vfov, scale, aperture, dist_to_focus, 0.0, 1.0);
 	unsigned char* data = new unsigned char[width * height * 3];
 	for (int j = height - 1; j >= 0; j--)
 	{
@@ -122,7 +142,7 @@ int main()
 				auto u = (i + randomFloat()) / width;
 				auto v = (height - j + randomFloat() - 1) / height;
 				Ray r = camera.getRay(u, v);
-				color += rayColor(r, scene, maxDepth);
+				color += rayColor(r, background, scene, maxDepth);
 			}
 			auto r = sqrt(color.x / sample);
 			auto g = sqrt(color.y / sample);

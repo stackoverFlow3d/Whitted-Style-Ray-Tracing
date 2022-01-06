@@ -82,6 +82,13 @@ inline Vec3 random_in_unit_disk()
 		return p;
 	}
 }
+inline Vec3 randomDir()
+{
+	auto a = randomFloat(0, 2 * pi);
+	auto z = randomFloat(-1, 1);
+	auto r = sqrt(1 - z * z);
+	return Vec3(r * cos(a), r * sin(a), z);
+}
 inline static Vec3 randomVec3()
 {
 	return Vec3(randomFloat(), randomFloat(), randomFloat());

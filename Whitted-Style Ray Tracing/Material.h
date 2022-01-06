@@ -3,23 +3,10 @@
 class Material
 {
 public:
-	float random() const
+	virtual Color3 emitted(float u, float v, const Point3& p) const
 	{
-		return rand() / (RAND_MAX + 1.0);
-	}
-
-	float random(float min, float max) const
-	{
-		return min + (max - min) * random();
-	}
-
-	Vec3 randomDir() const
-	{
-		auto a = random(0, 2 * pi);
-		auto z = random(-1, 1);
-		auto r = sqrt(1 - z * z);
-		return Vec3(r * cos(a), r * sin(a), z);
-	}
+		return Color3(0, 0, 0);
+	};
 	virtual bool scatter(const Ray& in,const hitRecord& recored,Color3& attenuation,Ray& out)const = 0;
 };
 
