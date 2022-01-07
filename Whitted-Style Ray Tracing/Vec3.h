@@ -15,18 +15,18 @@ public:
 	{
 		if (i == 0)
 			return x;
-		else if (x == 1)
+		else if (i == 1)
 			return y;
-		else if (x == 2)
+		else if (i == 2)
 			return z;
 	};
 	float& operator[](int i)
 	{
 		if (i == 0)
 			return x;
-		else if (x == 1)
+		else if (i == 1)
 			return y;
-		else if (x == 2)
+		else if (i == 2)
 			return z;
 	};
 	float length() const;

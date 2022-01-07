@@ -146,6 +146,7 @@
     <ClCompile Include="CheckerTexture.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="Diffuse.cpp" />
+    <ClCompile Include="Hittable.cpp" />
     <ClCompile Include="HittableList.cpp" />
     <ClCompile Include="Lambertian.cpp" />
     <ClCompile Include="main.cpp" />
