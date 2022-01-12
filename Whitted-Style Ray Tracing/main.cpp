@@ -132,7 +132,7 @@ HittableList cornellBox()
 int main()
 {
 	//size of image
-	const float scale = 1;
+	const float scale = 1.0;
 	const int width = 600;
 	const int height = static_cast<int>(width / scale);
 	Color3 background = Color3(0,0,0);
@@ -145,7 +145,7 @@ int main()
 	Point3 lookat(0, 0, 0);
 	Vec3 vup(0, 1, 0);
 	auto dist_to_focus = 10.0;
-	auto aperture = 0.1;
+	auto aperture = 0.0;
 	auto vfov = 40.0;
 	//scene
 	HittableList scene;
