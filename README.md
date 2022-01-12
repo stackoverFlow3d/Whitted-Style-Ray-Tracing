@@ -1,13 +1,13 @@
-# Whitted-Style-Ray-Tracing
-a Whitted-Style Ray Tracing Render.
+# Ray-Tracing rendering
+A Ray Tracing Render.
 
-![avatar](out/out1.png)
+![avatar](out/CornellBoxFinal.png)
 
 ## Features
 
-- stb_image to write png.
-
-- Anti-Aliasing:sample 500 times per pixel .
+- stb_image to write png
+- bvh
+- gamma
 
 Material:
 
@@ -17,9 +17,24 @@ Material:
 
 ![avatar](out/trick.png)
 
+Texture：
+
+- solidColor
+
+- checker
+
+  ![avatar](out/checker.png)
+
 Camera：
 
 - Depth of field
 - Motion blur
 
 ![avatar](out/depth.png)
+
+Light：
+
+- diffuse meterial
+
+![avatar](out/light.png)
+
