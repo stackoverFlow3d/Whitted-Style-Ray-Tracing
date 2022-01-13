@@ -1,4 +1,4 @@
-# Ray-Tracing rendering
+# tiny Ray-Tracing Renderer
 A Ray Tracing Render.
 
 ![avatar](out/CornellBoxFinal.png)
